@@ -15,6 +15,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from spherometer_utils import *
 
+
 # %%
 def polar_roc_measurement(csv_file, title='M1N10 after x hours', spherometer_diameter=11.5, object_diameter=32,
                           measurement_radius=[11.875, 8.5, 5.25, 2], number_of_pixels=100, crop_clear_aperture=True,
@@ -46,7 +47,7 @@ def polar_roc_measurement(csv_file, title='M1N10 after x hours', spherometer_dia
             plt.colorbar(label='Equivalent sag on 11.5" spherometer (in)')
             plt.title(title + ', 0.0796" goal')
         else:
-            plt.imshow(np.flip(roc, 0), cmap='viridis_r',vmin = 5283, vmax = 5286.5)
+            plt.imshow(np.flip(roc, 0), cmap='viridis_r')
             plt.colorbar(label=plot_label)
             plt.title(title + ' has mean ROC=' + str(int(np.nanmean(roc))) + 'mm', x=0.65)
         plt.contour(np.flip(smoothed_data,0), colors='k', alpha=0.35, levels=6)
@@ -92,7 +93,7 @@ else:
 
     #title = 'M1N6 before'
 #%%
-common_path = 'C:/Users/warrenbfoster/OneDrive - University of Arizona/Documents/LFAST/mirrors/M19/'
+common_path = 'C:/Users/warrenbfoster/OneDrive - University of Arizona/Documents/LFAST/mirrors/M18/'
 valid_folders = [subfolder for subfolder in os.listdir(common_path) if os.path.isdir(common_path + subfolder)]
 
 for folder in valid_folders[-3:]:
@@ -101,7 +102,7 @@ for folder in valid_folders[-3:]:
 
         if file.endswith('.csv'):
             title = file.split('.')[0]
-            title = 'N19 on ' + title
+            title = common_path.split('/')[-2] + ' on ' + title
             val = polar_roc_measurement(file_path + file, title=title, measurement_radius=measurement_radius,spherometer_diameter=spherometer_diameter, object_diameter=object_diameter, crop_clear_aperture=crop_clear_aperture,number_of_pixels=256, sag_unit=sag_unit, output_sags=False)
 
 # file = 'roc_convex_30in_0930.csv'
